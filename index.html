@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mother's Day Card</title>
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    background: #fceff9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+
+  .container {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .envelope {
+    width: 300px;
+    height: 200px;
+    background: #f8a5c2;
+    position: relative;
+    margin: 0 auto;
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 50% 100%, 0 60%);
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    background: #f78fb3;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 2;
+    transition: transform 0.5s ease;
+  }
+
+  .card {
+    display: none;
+    background: #fffbea;
+    color: #333;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 280px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card p {
+    margin: 10px 0;
+  }
+
+  .card b {
+    color: #e84393;
+  }
+
+  .flowers {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .flower {
+    width: 30px;
+    height: 30px;
+    background: pink;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .flower::after {
+    content: '';
+    width: 6px;
+    height: 30px;
+    background: green;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .open-btn {
+    background-color: #ff6b81;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+
+  .open-btn:hover {
+    background-color: #ff4757;
+  }
+
+  /* Confetti and balloon styles */
+  .confetti {
+    position: absolute;
+    top: -10px;
+    width: 10px;
+    height: 10px;
+    background: red;
+    opacity: 0.7;
+    animation: fall 3s linear infinite;
+    z-index: 0;
+    border-radius: 50%;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="envelope" id="envelope">
+      <div class="flap" id="flap"></div>
+    </div>
+    <button class="open-btn" onclick="openEnvelope()">OPEN</button>
+
+    <div class="card" id="card">
+      <p></p>
+      <p style="text-align: center;"><b>Only 15 Days Left🎉💗</b></p>
+      <p>Wishing you a forever filled with joy & endless love! 💑</p>
+      <div class="flowers">
+        <div class="flower" style="background: #a29bfe;"></div>
+        <div class="flower" style="background: #fd79a8;"></div>
+        <div class="flower" style="background: #ffeaa7;"></div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+  
+function openEnvelope() {
+  document.getElementById("flap").style.transform = "rotateX(180deg)";
+  setTimeout(() => {
+    document.getElementById("card").style.display = "block";
+    launchConfetti();
+  }, 500);
+}
+
+function launchConfetti() {
+  for (let i = 0; i < 50; i++) {
+    let confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.backgroundColor = randomColor();
+    confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+      confetti.remove();
+    }, 5000);
+  }
+}
+
+function randomColor() {
+  const colors = ["#f6e58d", "#ffbe76", "#ff7979", "#badc58", "#dff9fb", "#c7ecee", "#e056fd"];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+ </script>
+
+
+</body>
+</html>
